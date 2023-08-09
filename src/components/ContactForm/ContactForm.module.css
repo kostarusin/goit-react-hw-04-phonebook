@@ -1,0 +1,34 @@
+.form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 350px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: large;
+  font-weight: 500;
+}
+
+.formInput {
+  max-width: 240px;
+  height: 24px;
+}
+
+.formButton {
+  width: 100px;
+  height: 24px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.formButton:hover {
+  background-color: rgb(83, 87, 87);
+  color: #ffffff;
+}

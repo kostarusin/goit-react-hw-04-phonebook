@@ -1,0 +1,27 @@
+.list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 320px;
+}
+
+.listEl {
+  display: flex;
+}
+
+.listBtnWrap {
+  margin-left: auto;
+}
+
+.listBtn {
+  
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.listBtn:hover {
+    background-color: rgb(83, 87, 87);
+    color: #ffffff;
+}
+
