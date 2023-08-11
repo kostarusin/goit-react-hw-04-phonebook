@@ -10,7 +10,7 @@ const ContactForm = ({ onAddContact }) => {
 
   const handleChange = event => {
     const { name, value } = event.target;
-    setContact({ [name]: value });
+    setContact(prevContact => ({ ...prevContact, [name]: value }));
   };
 
   const handleSubmit = event => {

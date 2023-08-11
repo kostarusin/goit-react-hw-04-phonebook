@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
 import { nanoid } from 'nanoid';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(localStorage.getItem('contacts')) ?? [];
+  });
   const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const addContact = (name, number) => {
     const contactExists = contacts.some(
@@ -18,18 +24,17 @@ export const App = () => {
       return;
     }
     const newContact = { id: nanoid(), name, number };
-    setContacts(({ contacts }) => ({
-      contacts: [...contacts, newContact],
-    }));
+    setContacts(prevContacts => [...prevContacts, newContact]);
   };
+
   const deleteContact = id => {
-    setContacts(({ contacts }) => ({
-      contacts: contacts.filter(contact => contact.id !== id),
-    }));
+    setContacts(prevContacts =>
+      prevContacts.filter(contact => contact.id !== id)
+    );
   };
 
   const handleFilter = event => {
-    setFilter({ filter: event.currentTarget.value });
+    setFilter(event.currentTarget.value);
   };
 
   const getFilteredContacts = () => {
@@ -39,8 +44,6 @@ export const App = () => {
     );
   };
 
-  const filteredContacts = getFilteredContacts();
-
   return (
     <div>
       <h1>Phonebook</h1>
@@ -49,7 +52,7 @@ export const App = () => {
       <h2>Contacts</h2>
       <Filter value={filter} onFilter={handleFilter} />
       <ContactList
-        contacts={filteredContacts}
+        contacts={getFilteredContacts()}
         onDeleteContact={deleteContact}
       />
     </div>
